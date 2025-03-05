@@ -42,6 +42,38 @@ readMoreLink.forEach((button, index) => {
   });
 });
 
+const form = document.getElementById('contact-form');
+const successMessage = document.getElementById('success-message');
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('Full Name').value;
+    const email = document.getElementById('Email Address').value;
+    const number = document.getElementById('Mobile Number').value;
+    const message = document.getElementById('Email Subject').value;
+    const mess = document.getElementById('Your Message').value;
+
+    const formData = new FormData();
+    formData.append('entry.1223888305', name);
+    formData.append('entry.1425237878', email);
+    formData.append('entry.404252454', number);
+    formData.append('entry.1893542905', message);
+    formData.append('entry.433289646', mess);
+    fetch('https://docs.google.com/forms/u/0/d/e/1FAIpQLScHrz5BQFgEUrYFYD2d-tgOhtZ9L_kxQPBBqwiSXl2bI58t7A/formResponse', {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors',
+    })
+        .then((response) => response.text())
+        .then((data) => {
+            successMessage.innerText = 'Message sent successfully';
+        })
+        .catch((error) => {
+            successMessage.innerText = 'Error sending message';
+        });
+});
+
 ScrollReveal({ 
     distance: '80px',
     duration: 2000,
